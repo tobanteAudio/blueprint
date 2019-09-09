@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="nIXbp2" name="BlueprintPlugin" projectType="audioplug" jucerVersion="5.4.1"
-              pluginFormats="buildAU,buildStandalone" cppLanguageStandard="17">
+<JUCERPROJECT id="nIXbp2" name="BlueprintPlugin" projectType="audioplug" jucerVersion="5.4.4"
+              pluginFormats="buildAU,buildStandalone,buildVST3" cppLanguageStandard="17">
   <MAINGROUP id="fxejvo" name="BlueprintPlugin">
     <GROUP id="{22AC3B13-166F-9652-6655-A859A305206D}" name="Source">
       <FILE id="bbYPa7" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -60,6 +60,7 @@
   </MODULES>
   <LIVE_SETTINGS>
     <OSX/>
+    <WINDOWS/>
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_VST3_CAN_REPLACE_VST2="0" JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
 </JUCERPROJECT>
