@@ -3,24 +3,35 @@ language: cpp
 script-anchors:
   - &script-documentation
     - cd $TRAVIS_BUILD_DIR
-    - make documentation
+    - doxygen Doxyfile.in
 
   - &script-macOS
     - gem install xcpretty
     - gem install xcpretty-travis-formatter
 
+    # Build node package
     - cd $TRAVIS_BUILD_DIR/packages/juce-blueprint
-    # - rm -rf package-lock.json
     - npm ci
     - npm run build
 
-    - cd $TRAVIS_BUILD_DIR/examples/BlueprintPlugin/Source/ui/
-    # - rm -rf package-lock.json
+    # Build JS UI
+    - cd $TRAVIS_BUILD_DIR/examples/BlueprintPlugin/Source/ui
     - npm ci
     - npm run build
 
-    - cd $TRAVIS_BUILD_DIR/examples/BlueprintPlugin/Builds/MacOSX/
-    - xcodebuild -project BlueprintPlugin.xcodeproj | xcpretty -f `xcpretty-travis-formatter`
+    # Build plugin
+    - cd $TRAVIS_BUILD_DIR/examples/BlueprintPlugin/Builds/MacOSX
+    - xcodebuild -project BlueprintPlugin.xcodeproj/ clean
+    - xcodebuild -project BlueprintPlugin.xcodeproj/ ARCHS="x86_64" ONLY_ACTIVE_ARCH=NO -configuration Release | xcpretty -f `xcpretty-travis-formatter`
+    - ls -la build/Release
+
+    # Test / PluginVal
+    - mkdir -p $TRAVIS_BUILD_DIR/PluginVal/bin
+    - cd $TRAVIS_BUILD_DIR/PluginVal
+    - curl -L "https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_macOS.zip" -o pluginval.zip
+    - unzip pluginval
+    - pluginval.app/Contents/MacOS/pluginval --validate-in-process --output-dir "./bin" --strictness-level 10 --validate "$TRAVIS_BUILD_DIR/examples/BlueprintPlugin/Builds/MacOSX/build/Release/BlueprintPlugin.vst3" || exit 1
+    - ls bin
 
 matrix:
   include:
@@ -36,7 +47,7 @@ matrix:
     #   deploy:
     #     provider: pages
     #     skip_cleanup: true
-    #     local_dir: $TRAVIS_BUILD_DIR/Builds/Documentation/html
+    #     local_dir: $TRAVIS_BUILD_DIR/documentation/html
     #     github_token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
     #     keep_history: true
     #     on:
