@@ -1,0 +1,41 @@
+language: cpp
+
+script-anchors:
+  - &script-documentation
+    - cd $TRAVIS_BUILD_DIR
+    - make documentation
+
+  - &script-macOS
+    - gem install xcpretty
+    - gem install xcpretty-travis-formatter
+
+    - cd $TRAVIS_BUILD_DIR/blueprint/packages/juce-blueprint
+    - npm install
+    - npm run build
+
+    - cd $TRAVIS_BUILD_DIR/examples/BlueprintPlugin/Source/ui/
+    - npm install
+    - npm run build
+
+    - cd $TRAVIS_BUILD_DIR/examples/BlueprintPlugin/Builds/MacOSX/
+    - xcodebuild -project BlueprintPlugin.xcodeproj | xcpretty -f `xcpretty-travis-formatter`
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode9.4
+      script: *script-macOS
+    # - os: osx
+    #   addons:
+    #     homebrew:
+    #       packages:
+    #         - doxygen
+    #   script: *script-documentation
+    #   deploy:
+    #     provider: pages
+    #     skip_cleanup: true
+    #     local_dir: $TRAVIS_BUILD_DIR/Builds/Documentation/html
+    #     github_token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
+    #     keep_history: true
+    #     on:
+    #       branch: master
