@@ -10,10 +10,12 @@ script-anchors:
     - gem install xcpretty-travis-formatter
 
     - cd $TRAVIS_BUILD_DIR/packages/juce-blueprint
+    - rm -rf package-lock.json
     - npm install
     - npm run build
 
     - cd $TRAVIS_BUILD_DIR/examples/BlueprintPlugin/Source/ui/
+    - rm -rf package-lock.json
     - npm install
     - npm run build
 
