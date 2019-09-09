@@ -21,7 +21,6 @@ script-anchors:
 
     # Build plugin
     - cd $TRAVIS_BUILD_DIR/examples/BlueprintPlugin/Builds/MacOSX
-    - xcodebuild -project BlueprintPlugin.xcodeproj/ clean
     - xcodebuild -project BlueprintPlugin.xcodeproj/ ARCHS="x86_64" ONLY_ACTIVE_ARCH=NO -configuration Release | xcpretty -f `xcpretty-travis-formatter`
     - ls -la build/Release
 

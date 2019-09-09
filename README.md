@@ -5,6 +5,12 @@ Blueprint is an experimental JavaScript/C++ framework that enables a [React.js](
 
 For more information, see the introductory blog post here: [Blueprint: A JUCE Rendering Backend for React.js](https://nickwritesablog.com/blueprint-a-juce-rendering-backend-for-react-js)
 
+## Status
+
+|                                                                  LICENSE                                                                  |                                                              macOS                                                              |
+| :---------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+| [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/nick-thompson/blueprint/blob/master/LICENSE.md) | [![Build Status](https://travis-ci.org/tobanteAudio/blueprint.svg?branch=master)](https://travis-ci.org/tobanteAudio/blueprint) |
+
 ## Examples
 Blueprint is a very young project, but already it provides the framework on which the entire user interface for [Creative Intent](http://creativeintent.co/)'s forthcoming plugin, Remnant, is built.
 
